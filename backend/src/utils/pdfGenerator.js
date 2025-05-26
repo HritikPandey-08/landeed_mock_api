@@ -7,27 +7,27 @@ function generatePDF(data, res) {
 
     doc.pipe(res);
 
+    // Title
     doc.fontSize(20).text('Land Record Summary', { align: 'center' });
     doc.moveDown();
     doc.fontSize(12).text(`Generated on: ${new Date().toLocaleDateString()}`, { align: 'right' });
+    doc.moveDown(2);
+
+    // Owner Details
+    doc.fontSize(16).text('Owner Details', { underline: true });
+    doc.fontSize(12).text(`Owner Name: ${data.owner_name}`);
+    doc.text(`Plot Number: ${data.plot_number}`);
     doc.moveDown();
 
-    // Example: Grouping data (customize as needed)
-    if (data.owner) {
-        doc.fontSize(16).text('Owner Details', { underline: true });
-        Object.entries(data.owner).forEach(([key, value]) => {
-            doc.fontSize(12).text(`${key}: ${value}`);
-        });
-        doc.moveDown();
-    }
-    if (data.property) {
-        doc.fontSize(16).text('Property Details', { underline: true });
-        Object.entries(data.property).forEach(([key, value]) => {
-            doc.fontSize(12).text(`${key}: ${value}`);
-        });
-        doc.moveDown();
-    }
-    // Add more sections as needed
+    // Property Details
+    doc.fontSize(16).text('Property Details', { underline: true });
+    doc.fontSize(12).text(`Area: ${data.area}`);
+    doc.text(`Location: ${data.location}`);
+    doc.text(`Registration Date: ${new Date(data.registration_date).toLocaleDateString()}`);
+    doc.moveDown();
+
+    // Footer or ID if needed
+    doc.fontSize(10).text(`Record ID: ${data.id}`, { align: 'left' });
 
     doc.end();
 }

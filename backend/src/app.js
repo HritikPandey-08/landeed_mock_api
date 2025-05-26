@@ -29,7 +29,7 @@ app.use(cookirParse())
 
 import landedRoutes from "./routers/land.routes.js";
 
-app.use("/api/v1/user", landedRoutes);
+app.use("/api/v1/", landedRoutes);
 
 
 
